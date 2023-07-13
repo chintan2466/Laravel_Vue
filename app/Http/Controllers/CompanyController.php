@@ -12,13 +12,17 @@ use Mail;
 
 class CompanyController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
+        // $user = auth('sanctum')->;
+        // echo '<br /><br /><br /><br /><pre>'; print_r($user); echo '</pre>'; exit;
         return new CompanyCollection(Company::orderBy('id', 'DESC')->paginate(10));
     }
     public function search($field, $query)

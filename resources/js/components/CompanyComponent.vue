@@ -58,11 +58,11 @@
                                 <tr v-for="(company, index) in companies" :key="company.id">
                                     <td>{{ index + 1 }}</td>
                                     <td v-if="company.logo != null && company.logo !== ''">
-                                        <img style="width:120px;" :src="'../storage/company/' + company.logo"
+                                        <img style="width:120px;height: 120px;" :src="'../storage/company/' + company.logo"
                                             :alt="company.logo">
                                     </td>
                                     <td v-else>
-                                        <img style="width:120px;" :src="'../storage/company/defaultLogo.jpg'"
+                                        <img style="width:120px;height: 120px;" :src="'../storage/company/defaultLogo.jpg'"
                                             :alt="company.logo">
                                     </td>
                                     <td>{{ company.name }}</td>
@@ -128,7 +128,7 @@
                                     <label for="logo">Logo</label>
                                     <input type="file" @change="onFileChange" class="form-control-file" name="logo"
                                         id="logo" placeholder="logo">
-                                    <img class="mt-3" style="width:150px;" :src="logoPreview" alt="">
+                                    <img class="mt-3" style="width:150px;" :src="logoPreview" alt="" id="addSrc">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -183,7 +183,7 @@
                                         id="logo" placeholder="logo">
                                     <img class="mt-3"
                                         v-bind:src="logoPreview == null ? '../storage/company/' + form.logo : logoPreview"
-                                        width="100" height="100" />
+                                        width="100" height="100" id="editSrc" />
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -275,13 +275,19 @@ export default {
         create() {
             this.form.reset();
             this.form.clear();
+            this.form.logo = '';
+            this.logoPreview = '';
             this.errorMessages = '';
+            $("#addSrc").attr('src', '');
             $("#addModal").modal("show");
         },
         createClose() {
             this.form.reset();
             this.form.clear();
+            this.form.logo = '';
+            this.logoPreview = '';
             this.errorMessages = '';
+            $("#addSrc").attr('src', '');
             $("#addModal").modal("hide");
         },
         onFileChange(event) {
@@ -293,7 +299,13 @@ export default {
             if (this.form.logo) {
                 if (/\.(jpe?g|png|gif)$/i.test(this.form.logo.name)) {
                     reader.readAsDataURL(this.form.logo);
+                } else {
+                    this.form.logo = '';
+                    this.logoPreview = '../storage/company/defaultLogo.jpg';
                 }
+            } else {
+                this.form.logo = '';
+                this.logoPreview = '../storage/company/defaultLogo.jpg';
             }
         },
         store() {
@@ -318,7 +330,7 @@ export default {
                 })
                 .catch((error) => {
                     // console.log(error.response);
-                    if(error.response.data){
+                    if (error.response.data) {
                         this.errorMessages = error.response.data;
                     }
                     this.$snotify.error(
@@ -332,13 +344,28 @@ export default {
         edit(company) {
             this.form.reset();
             this.form.clear();
+            this.form.logo = '';
+            this.logoPreview = '';
+            // $("#editSrc").attr('src','');
             this.form.fill(company);
             this.errorMessages = '';
-            $("#EditModal").modal("show");
+            setTimeout(() => {
+                $("#EditModal").modal("show");
+                if (company.logo != '') {
+                    this.logoPreview = '../storage/company/'+ company.logo;
+                } else {
+                    this.logoPreview = '../storage/company/defaultLogo.jpg';
+                }
+            }, 200);
+
+
         },
         editClose() {
             this.form.reset();
             this.form.clear();
+            this.form.logo = '';
+            this.logoPreview = '';
+            $("#editSrc").attr('src', '');
             this.errorMessages = '';
             $("#EditModal").modal("hide");
         },
@@ -364,7 +391,7 @@ export default {
                 })
                 .catch((error) => {
                     // console.log(error.response.data.errors);
-                    if(error.response.data){
+                    if (error.response.data) {
                         this.errorMessages = error.response.data;
                     }
                     this.$snotify.error(

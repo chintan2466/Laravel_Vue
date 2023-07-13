@@ -5147,13 +5147,19 @@ __webpack_require__.r(__webpack_exports__);
     create: function create() {
       this.form.reset();
       this.form.clear();
+      this.form.logo = '';
+      this.logoPreview = '';
       this.errorMessages = '';
+      $("#addSrc").attr('src', '');
       $("#addModal").modal("show");
     },
     createClose: function createClose() {
       this.form.reset();
       this.form.clear();
+      this.form.logo = '';
+      this.logoPreview = '';
       this.errorMessages = '';
+      $("#addSrc").attr('src', '');
       $("#addModal").modal("hide");
     },
     onFileChange: function onFileChange(event) {
@@ -5165,7 +5171,13 @@ __webpack_require__.r(__webpack_exports__);
       if (this.form.logo) {
         if (/\.(jpe?g|png|gif)$/i.test(this.form.logo.name)) {
           reader.readAsDataURL(this.form.logo);
+        } else {
+          this.form.logo = '';
+          this.logoPreview = '../storage/company/defaultLogo.jpg';
         }
+      } else {
+        this.form.logo = '';
+        this.logoPreview = '../storage/company/defaultLogo.jpg';
       }
     },
     store: function store() {
@@ -5193,44 +5205,58 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     edit: function edit(company) {
+      var _this4 = this;
       this.form.reset();
       this.form.clear();
+      this.form.logo = '';
+      this.logoPreview = '';
+      // $("#editSrc").attr('src','');
       this.form.fill(company);
       this.errorMessages = '';
-      $("#EditModal").modal("show");
+      setTimeout(function () {
+        $("#EditModal").modal("show");
+        if (company.logo != '') {
+          _this4.logoPreview = '../storage/company/' + company.logo;
+        } else {
+          _this4.logoPreview = '../storage/company/defaultLogo.jpg';
+        }
+      }, 200);
     },
     editClose: function editClose() {
       this.form.reset();
       this.form.clear();
+      this.form.logo = '';
+      this.logoPreview = '';
+      $("#editSrc").attr('src', '');
       this.errorMessages = '';
       $("#EditModal").modal("hide");
     },
     update: function update() {
-      var _this4 = this;
+      var _this5 = this;
       this.$Progress.start();
       this.form.busy = true;
       this.form.post('/api/company/' + this.form.id).then(function (response) {
-        _this4.getData();
+        _this5.getData();
         $("#EditModal").modal("hide");
-        if (_this4.form.successful) {
-          _this4.$Progress.finish();
-          _this4.$snotify.success("Company Update Successfully");
+        if (_this5.form.successful) {
+          _this5.$Progress.finish();
+          _this5.$snotify.success("Company Update Successfully");
         } else {
-          _this4.$Progress.fail();
-          _this4.$snotify.error("Something went wrong try again later.", "Error");
+          _this5.$Progress.fail();
+          _this5.$snotify.error("Something went wrong try again later.", "Error");
         }
         // console.log(response);
       })["catch"](function (error) {
         // console.log(error.response.data.errors);
         if (error.response.data) {
-          _this4.errorMessages = error.response.data;
+          _this5.errorMessages = error.response.data;
         }
-        _this4.$snotify.error("Something went wrong please check form errors.", "Error");
+        _this5.$snotify.error("Something went wrong please check form errors.", "Error");
         console.log('Error: ' + error);
       });
     },
     destroy: function destroy(company) {
-      var _this5 = this;
+      var _this6 = this;
       this.$snotify.clear();
       this.$snotify.confirm('You want to delete Company : ' + company.name, 'Are You Sure ?', {
         showProgressBar: false,
@@ -5239,12 +5265,12 @@ __webpack_require__.r(__webpack_exports__);
         buttons: [{
           text: 'Yes',
           action: function action(toast) {
-            _this5.$snotify.remove(toast.id);
-            _this5.$Progress.start();
-            _this5.form["delete"]('/api/company/' + company.id).then(function (response) {
-              _this5.getData();
-              _this5.$Progress.finish();
-              _this5.$snotify.success("Company Deleted Successfully");
+            _this6.$snotify.remove(toast.id);
+            _this6.$Progress.start();
+            _this6.form["delete"]('/api/company/' + company.id).then(function (response) {
+              _this6.getData();
+              _this6.$Progress.finish();
+              _this6.$snotify.success("Company Deleted Successfully");
               // console.log(response);
             })["catch"](function (error) {
               // console.log(error);
@@ -5258,7 +5284,7 @@ __webpack_require__.r(__webpack_exports__);
           text: 'No',
           action: function action(toast) {
             // console.log('Clicked: No'); 
-            _this5.$snotify.remove(toast.id);
+            _this6.$snotify.remove(toast.id);
           },
           bold: true
         }]
@@ -5702,7 +5728,8 @@ var render = function render() {
       key: company.id
     }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), company.logo != null && company.logo !== "" ? _c("td", [_c("img", {
       staticStyle: {
-        width: "120px"
+        width: "120px",
+        height: "120px"
       },
       attrs: {
         src: "../storage/company/" + company.logo,
@@ -5710,7 +5737,8 @@ var render = function render() {
       }
     })]) : _c("td", [_c("img", {
       staticStyle: {
-        width: "120px"
+        width: "120px",
+        height: "120px"
       },
       attrs: {
         src: "../storage/company/defaultLogo.jpg",
@@ -5921,7 +5949,8 @@ var render = function render() {
     },
     attrs: {
       src: _vm.logoPreview,
-      alt: ""
+      alt: "",
+      id: "addSrc"
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
@@ -6111,7 +6140,8 @@ var render = function render() {
     attrs: {
       src: _vm.logoPreview == null ? "../storage/company/" + _vm.form.logo : _vm.logoPreview,
       width: "100",
-      height: "100"
+      height: "100",
+      id: "editSrc"
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
