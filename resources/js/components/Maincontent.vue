@@ -3,7 +3,7 @@
         <ul class="nav nav-tabs  mb-3">
             <li class="nav-item">
                 <a :class="currentComponent == 'company-component' ? 'nav-link active' : 'nav-link'"
-                    href="javascript:void(0);" @click="swapComponent('company-component')">Company</a>
+                     href="javascript:void(0);" @click="swapComponent('company-component')">Company</a>
             </li>
             <li class="nav-item">
                 <a :class="currentComponent == 'employee-component' ? 'nav-link active' : 'nav-link'"

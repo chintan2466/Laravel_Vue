@@ -69,7 +69,7 @@ class EmployeeController extends Controller
     {
         return new EmployeeResource($employee);
     }
-
+ 
     /**
      * Update the specified resource in storage.
      *

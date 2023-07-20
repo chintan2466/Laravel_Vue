@@ -23,7 +23,7 @@
                     <div class="m-3">
                         <div class="row">
                             <div class="col-md-2">
-                                <strong>Search By: </strong>
+                                <strong>Search By: </strong> 
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">

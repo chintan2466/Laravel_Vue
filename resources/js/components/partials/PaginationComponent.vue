@@ -41,7 +41,7 @@ export default {
             this.pagination.current_page = page;
             this.$emit('paginate');
         }
-    },
+    }, 
     computed: {
         pages() {
             let pages = []

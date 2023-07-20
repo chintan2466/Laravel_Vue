@@ -17,7 +17,7 @@ const VueProgressBarOptions = {
     location: 'top',
     inverse: false
 }
-
+ 
 
 Vue.use(VueProgressBar, VueProgressBarOptions)
 import Snotify, { SnotifyPosition } from 'vue-snotify'

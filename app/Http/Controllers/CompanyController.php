@@ -43,7 +43,7 @@ class CompanyController extends Controller
             // 'email'=> 'nullable|unique:companies,email',
             'logo'=> 'nullable|mimes:jpg,jpeg,png|max:2048',
             // 'website'=> 'required',
-        ]);
+        ]);  
         if ($validator->fails()) {    
             return response()->json($validator->errors(), 400);
         }

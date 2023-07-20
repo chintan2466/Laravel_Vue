@@ -14,7 +14,7 @@ class CompanyFactory extends Factory
      * @return array
      */
     protected $model = Company::class;
-
+ 
     public function definition()
     {
         return [
