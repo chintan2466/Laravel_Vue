@@ -118,6 +118,9 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         $company->delete();
+        if($company->logo!=''){
+            unlink(storage_path("app/public/company/".$company->logo));
+        }
         
         return new CompanyResource($company);
     }
