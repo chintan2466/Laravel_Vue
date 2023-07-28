@@ -6,6 +6,8 @@ namespace Tests\Unit;
 use  Tests\TestCase;
 use  App\Models\Employee;
 use  App\Models\Company;
+use  App\Models\User;
+use Laravel\Sanctum\Sanctum;
 
 class EmployeeTest extends TestCase
 {
@@ -16,6 +18,8 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_store()
     {
+        $user = User::find(1);
+        Sanctum::actingAs($user,['*']);
         $lastCompanyId = collect(Company::all())->last()->id;
         $response = $this->post('/api/employee',[
             'firstname'=>'Test1 First Name',
@@ -36,6 +40,8 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_update()
     {
+        $user = User::find(1);
+        Sanctum::actingAs($user,['*']);
         $data = Employee::all();
         $lastInsertId = collect($data)->last()->id;
         
@@ -60,6 +66,8 @@ class EmployeeTest extends TestCase
      */
     public function test_employee_delete()
     {
+        $user = User::find(1);
+        Sanctum::actingAs($user,['*']);
         $data = Employee::all();
         $lastInsertId = collect($data)->last()->id;
         

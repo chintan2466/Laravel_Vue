@@ -5,6 +5,8 @@ namespace Tests\Unit;
 // use PHPUnit\Framework\TestCase;
 use  Tests\TestCase;
 use  App\Models\Company;
+use  App\Models\User;
+use Laravel\Sanctum\Sanctum;
 
 class CompanyTest extends TestCase
 {
@@ -15,6 +17,8 @@ class CompanyTest extends TestCase
      */
     public function test_company_store()
     {
+        $user = User::find(1);
+        Sanctum::actingAs($user,['*']);
         $response = $this->post('/api/company',[
             'name'=>'Test1 Name',
             'email'=>'testing@testing.com',
@@ -33,6 +37,8 @@ class CompanyTest extends TestCase
      */
     public function test_company_update()
     {
+        $user = User::find(1);
+        Sanctum::actingAs($user,['*']);
         $data = Company::all();
         $lastInsertId = collect($data)->last()->id;
         
@@ -54,6 +60,8 @@ class CompanyTest extends TestCase
      */
     public function test_company_delete()
     {
+        $user = User::find(1);
+        Sanctum::actingAs($user,['*']);
         $data = Company::all();
         $lastInsertId = collect($data)->last()->id;
         
