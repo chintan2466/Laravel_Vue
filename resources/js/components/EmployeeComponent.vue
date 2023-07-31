@@ -58,7 +58,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(employee, index) in employees" :key="employee.id">
-                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ employee.id }}</td>
                                     <td>{{ employee.firstname }}</td>
                                     <td>{{ employee.lastname }}</td>
                                     <td>{{ employee.email }}</td>

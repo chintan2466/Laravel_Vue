@@ -56,7 +56,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(company, index) in companies" :key="company.id">
-                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ company.id }}</td>
                                     <td v-if="company.logo != null && company.logo !== ''">
                                         <img style="width:120px;height: 120px;" :src="'../storage/company/' + company.logo"
                                             :alt="company.logo">

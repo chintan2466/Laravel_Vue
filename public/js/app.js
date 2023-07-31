@@ -5726,7 +5726,7 @@ var render = function render() {
   }, [_vm._m(2), _vm._v(" "), _c("tbody", _vm._l(_vm.companies, function (company, index) {
     return _c("tr", {
       key: company.id
-    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), company.logo != null && company.logo !== "" ? _c("td", [_c("img", {
+    }, [_c("td", [_vm._v(_vm._s(company.id))]), _vm._v(" "), company.logo != null && company.logo !== "" ? _c("td", [_c("img", {
       staticStyle: {
         width: "120px",
         height: "120px"
@@ -6317,7 +6317,7 @@ var render = function render() {
   }, [_vm._m(2), _vm._v(" "), _c("tbody", _vm._l(_vm.employees, function (employee, index) {
     return _c("tr", {
       key: employee.id
-    }, [_c("td", [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(employee.firstname))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(employee.lastname))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(employee.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(employee.phone))]), _vm._v(" "), _c("td", _vm._l(_vm.companies, function (company) {
+    }, [_c("td", [_vm._v(_vm._s(employee.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(employee.firstname))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(employee.lastname))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(employee.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(employee.phone))]), _vm._v(" "), _c("td", _vm._l(_vm.companies, function (company) {
       return _c("span", {
         key: company.id,
         attrs: {
