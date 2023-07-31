@@ -1,7 +1,7 @@
 
 ## Steps To run this Practical test
 
--- create db laravel_vue
+-- create db laravel_vue and laravel_vue_unit_testing
 
 - npm run start
 - open http://127.0.0.1:8000/ for check 
