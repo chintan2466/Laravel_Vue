@@ -1,4 +1,6 @@
 - Ref: https://www.youtube.com/watch?v=hkMSJN5n43E
+- https://github.com/thetestcoder/laravel-vue-crud-example
+
 ## Steps To run this Practical test
 
 -- create db laravel_vue and laravel_vue_unit_testing
